@@ -4,11 +4,13 @@ const UserContext = createContext();
 
 export default UserContext;
 
-const UserContextProvider = ({ children }) => {
+function UserContextProvider({ children }) {
   const [user, setUser] = useState("basile");
-  <UserContext.Provider value={{ user, setUser }}>
-    {children}
-  </UserContext.Provider>;
-};
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
+}
 
 export { UserContextProvider };
