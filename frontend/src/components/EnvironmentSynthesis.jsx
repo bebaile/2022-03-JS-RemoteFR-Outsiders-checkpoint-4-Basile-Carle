@@ -7,9 +7,8 @@ function EnvironmentSynthesis({ city }) {
   const [weatherData, setWeatherData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const BASE = "https://api.waqi.info/feed/Montpellier/?token=";
+    const BASE = `https://api.waqi.info/feed/${city}/?token=`;
     const ENDPOINT = BASE + import.meta.env.VITE_WAQI_TOKEN;
-    console.error(ENDPOINT);
     const fetchAqi = async () => {
       try {
         const result = await api.get(ENDPOINT);
@@ -22,10 +21,8 @@ function EnvironmentSynthesis({ city }) {
   }, []);
 
   useEffect(() => {
-    const BASE =
-      "http://api.openweathermap.org/data/2.5/weather?q=Montpellier,fr&units=metric&lang=fr&APPID=";
+    const BASE = `http://api.openweathermap.org/data/2.5/weather?q=${city},fr&units=metric&lang=fr&APPID=`;
     const ENDPOINTWEATHER = BASE + import.meta.env.VITE_OPENWEATHERMAP_TOKEN;
-    console.error(ENDPOINTWEATHER);
     const fetchWeather = async () => {
       try {
         const result = await api.get(ENDPOINTWEATHER);
@@ -39,9 +36,9 @@ function EnvironmentSynthesis({ city }) {
 
   useEffect(() => {
     if (aqiData.length !== 0 && weatherData.length !== 0) {
-      console.error(aqiData.data);
-      console.error(weatherData.data);
       setIsLoading(false);
+      console.error(aqiData);
+      console.error(weatherData);
     }
   }, [aqiData, weatherData]);
 
