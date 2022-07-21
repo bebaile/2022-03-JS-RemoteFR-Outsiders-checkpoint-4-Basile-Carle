@@ -1,10 +1,16 @@
 import EnvironmentSynthesis from "@components/EnvironmentSynthesis";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import api from "@services/axios";
 import AddFavorite from "@components/AddFavorite";
 import "@styles/Dashboard.css";
+import UserContext from "@contexts/UserContext";
 
 export default function Dashboard() {
+  const {
+    isAddFavoriteDisplayed,
+    setIsAddFavoriteDisplayed,
+    updateMapedFavorites,
+  } = useContext(UserContext);
   const [favorites, setFavorites] = useState([]);
   useEffect(() => {
     const ENDPOINTFAVORITES = "/favorite";
@@ -18,10 +24,10 @@ export default function Dashboard() {
       }
     };
     fetchFavorites();
-  }, []);
+  }, [updateMapedFavorites]);
 
   const handleClick = () => {
-    console.error("click");
+    setIsAddFavoriteDisplayed(!isAddFavoriteDisplayed);
   };
 
   return (
@@ -37,12 +43,12 @@ export default function Dashboard() {
       <div className="add-favorite">
         <label htmlFor="add" onClick={handleClick}>
           <button type="button" className="button-blue" id="add">
-            +
+            {isAddFavoriteDisplayed ? "-" : "+"}
           </button>
           <span id>Ajouter un lieu favori</span>
         </label>
       </div>
-      <AddFavorite />
+      {isAddFavoriteDisplayed ? <AddFavorite /> : null}
     </>
   );
 }

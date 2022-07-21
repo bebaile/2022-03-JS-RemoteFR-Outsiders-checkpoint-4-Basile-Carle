@@ -21,12 +21,15 @@ function EnvironmentSynthesis({ city }) {
   }, []);
 
   useEffect(() => {
-    const BASE = `http://api.openweathermap.org/data/2.5/weather?q=${city},fr&units=metric&lang=fr&APPID=`;
+    const BASE = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&APPID=`;
     const ENDPOINTWEATHER = BASE + import.meta.env.VITE_OPENWEATHERMAP_TOKEN;
     const fetchWeather = async () => {
       try {
         const result = await api.get(ENDPOINTWEATHER);
-        setWeatherData(result);
+        console.error(result);
+        if (result.status === 200) {
+          setWeatherData(result);
+        }
       } catch (error) {
         console.error(error);
       }
