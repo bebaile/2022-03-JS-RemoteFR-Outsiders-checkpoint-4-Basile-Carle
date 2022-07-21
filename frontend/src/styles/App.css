@@ -30,6 +30,38 @@ body {
   background-color: var(--color-grey);
 }
 
-p {
-  color: red;
+.button-blue,
+.button-orange {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  border-radius: 0.6rem;
+  border: 0.125rem solid;
+  text-align: center;
+  font-weight: 500;
+  background-color: var(--color-grey);
+}
+
+.button-blue {
+  color: var(--color-interaction);
+  border-color: var(--color-interaction);
+}
+
+.button-orange {
+  color: var(--color-highlight);
+  border-color: var(--color-highlight);
+}
+
+.button-blue:hover,
+.button-orange:hover {
+  cursor: pointer;
+  transition: all 0.25s ease;
+  color: var(--color-grey);
+}
+
+.button-blue:hover {
+  background-color: var(--color-interaction);
+}
+
+.button-orange:hover {
+  background-color: var(--color-highlight);
 }

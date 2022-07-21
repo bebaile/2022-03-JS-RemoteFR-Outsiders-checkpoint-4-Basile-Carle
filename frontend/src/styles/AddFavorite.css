@@ -1,0 +1,19 @@
+.main-add-favorite {
+  background-color: var(--color-highlight);
+  border-radius: 10px;
+  width: 40ch;
+  margin: 2rem;
+  padding: 0.5rem;
+}
+
+.form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.input {
+  border-radius: 5px;
+  border: 0px;
+  padding: 0 0.5rem;
+}

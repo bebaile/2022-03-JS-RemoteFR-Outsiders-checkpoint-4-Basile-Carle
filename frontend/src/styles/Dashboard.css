@@ -1,4 +1,13 @@
 .main-dashboard {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.add-favorite {
+  margin: 2rem;
+}
+
+span {
+  margin: 1rem;
 }
