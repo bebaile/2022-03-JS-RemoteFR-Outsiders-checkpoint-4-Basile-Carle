@@ -37,8 +37,6 @@ function EnvironmentSynthesis({ city }) {
   useEffect(() => {
     if (aqiData.length !== 0 && weatherData.length !== 0) {
       setIsLoading(false);
-      console.error(aqiData);
-      console.error(weatherData);
     }
   }, [aqiData, weatherData]);
 

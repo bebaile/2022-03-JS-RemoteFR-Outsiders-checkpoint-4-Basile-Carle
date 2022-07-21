@@ -19,16 +19,28 @@ export default function Dashboard() {
     fetchFavorites();
   }, []);
 
-  useEffect(() => {}, [favorites]);
+  const handleClick = () => {
+    console.error("click");
+  };
 
   return (
-    <div className="main-dashboard">
-      {favorites.map((favorite) => (
-        <EnvironmentSynthesis
-          city={favorite.name}
-          key={favorite.idfavorite_places}
-        />
-      ))}
-    </div>
+    <>
+      <div className="main-dashboard">
+        {favorites.map((favorite) => (
+          <EnvironmentSynthesis
+            city={favorite.name}
+            key={favorite.idfavorite_places}
+          />
+        ))}
+      </div>
+      <div className="add-favorite">
+        <label htmlFor="add" onClick={handleClick}>
+          <button type="button" className="button-blue" id="add">
+            +
+          </button>
+          <span id>Ajouter un lieu favori</span>
+        </label>
+      </div>
+    </>
   );
 }
