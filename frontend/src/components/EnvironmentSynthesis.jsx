@@ -10,6 +10,7 @@ function EnvironmentSynthesis({ favorite }) {
   const [isLoading, setIsLoading] = useState(true);
   const { updateMapedFavorites, setUpdateMapedFavorites } =
     useContext(UserContext);
+  const [imgSrc, setImgSrc] = useState("");
 
   useEffect(() => {
     const BASE = `https://api.waqi.info/feed/${city}/?token=`;
@@ -43,6 +44,9 @@ function EnvironmentSynthesis({ favorite }) {
 
   useEffect(() => {
     if (aqiData.length !== 0 && weatherData.length !== 0) {
+      setImgSrc(
+        `https://openweathermap.org/img/wn/${weatherData.data.weather[0].icon}@2x.png`
+      );
       setIsLoading(false);
       console.error(aqiData);
       console.error(weatherData);
@@ -65,8 +69,6 @@ function EnvironmentSynthesis({ favorite }) {
     };
     deleteFavorite();
   };
-
-  const imgSrc = `https://openweathermap.org/img/wn/${weatherData.data.weather[0].icon}@2x.png`;
 
   return (
     <div className="environment-container">
