@@ -6,6 +6,7 @@ function EnvironmentSynthesis({ city }) {
   const [aqiData, setAqiData] = useState([]);
   const [weatherData, setWeatherData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const BASE = `https://api.waqi.info/feed/${city}/?token=`;
     const ENDPOINT = BASE + import.meta.env.VITE_WAQI_TOKEN;
@@ -26,7 +27,6 @@ function EnvironmentSynthesis({ city }) {
     const fetchWeather = async () => {
       try {
         const result = await api.get(ENDPOINTWEATHER);
-        console.error(result);
         if (result.status === 200) {
           setWeatherData(result);
         }
@@ -43,19 +43,34 @@ function EnvironmentSynthesis({ city }) {
     }
   }, [aqiData, weatherData]);
 
+  const handleClick = () => {};
+
   return (
-    <div>
+    <div className="environment-container">
       {isLoading ? (
         "Loading ..."
       ) : (
-        <div className="main-synthesis">
-          <div className="city">{city}</div>
-          <div className="weather">
-            {weatherData.data.weather[0].description}
+        <>
+          <div className="main-synthesis">
+            <div className="city">{city}</div>
+            <div className="weather">
+              {weatherData.data.weather[0].description}
+            </div>
+            <div className="iqa">IQA : {aqiData.data.aqi}</div>
+            <div className="temperature">
+              T°C : {weatherData.data.main.temp}
+            </div>
           </div>
-          <div className="iqa">IQA : {aqiData.data.aqi}</div>
-          <div className="temperature">T°C : {weatherData.data.main.temp}</div>
-        </div>
+          <div className="delete-favorite">
+            <button
+              type="button"
+              className="orange-button"
+              onClick={handleClick}
+            >
+              -
+            </button>
+          </div>
+        </>
       )}
     </div>
   );

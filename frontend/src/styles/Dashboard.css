@@ -1,13 +1,19 @@
 .main-dashboard {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }
 
 .add-favorite {
-  margin: 2rem;
+  margin: 0;
+  text-align: left;
 }
 
 span {
   margin: 1rem;
+}
+
+.delete-favorite {
+  width: 10px;
 }

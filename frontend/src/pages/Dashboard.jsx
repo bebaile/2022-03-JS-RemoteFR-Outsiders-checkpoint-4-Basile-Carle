@@ -31,24 +31,22 @@ export default function Dashboard() {
   };
 
   return (
-    <>
-      <div className="main-dashboard">
-        {favorites.map((favorite) => (
-          <EnvironmentSynthesis
-            city={favorite.name}
-            key={favorite.idfavorite_places}
-          />
-        ))}
-      </div>
+    <div className="main-dashboard">
+      {favorites.map((favorite) => (
+        <EnvironmentSynthesis
+          city={favorite.name}
+          key={favorite.idfavorite_places}
+        />
+      ))}
       <div className="add-favorite">
         <label htmlFor="add" onClick={handleClick}>
           <button type="button" className="button-blue" id="add">
             {isAddFavoriteDisplayed ? "-" : "+"}
           </button>
-          <span id>Ajouter un lieu favori</span>
+          <span>Ajouter un lieu favori</span>
         </label>
       </div>
       {isAddFavoriteDisplayed ? <AddFavorite /> : null}
-    </>
+    </div>
   );
 }
