@@ -4,12 +4,11 @@ const { ItemController, favoriteController } = require("./controllers");
 
 const router = express.Router();
 
-router.get("/items", ItemController.browse);
 router.get("/favorite", favoriteController.browse);
+router.post("/favorite", favoriteController.add);
 
 router.get("/items/:id", ItemController.read);
 router.put("/items/:id", ItemController.edit);
-router.post("/items", ItemController.add);
 router.delete("/items/:id", ItemController.delete);
 
 module.exports = router;

@@ -52,7 +52,7 @@ class favoriteController {
   };
 
   static add = (req, res) => {
-    const favorite = req.body;
+    const { favorite } = req.body;
 
     // TODO validations (length, format...)
 

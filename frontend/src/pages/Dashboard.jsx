@@ -1,7 +1,8 @@
 import EnvironmentSynthesis from "@components/EnvironmentSynthesis";
 import React, { useEffect, useState } from "react";
-import "@styles/Dashboard.css";
 import api from "@services/axios";
+import AddFavorite from "@components/AddFavorite";
+import "@styles/Dashboard.css";
 
 export default function Dashboard() {
   const [favorites, setFavorites] = useState([]);
@@ -41,6 +42,7 @@ export default function Dashboard() {
           <span id>Ajouter un lieu favori</span>
         </label>
       </div>
+      <AddFavorite />
     </>
   );
 }
