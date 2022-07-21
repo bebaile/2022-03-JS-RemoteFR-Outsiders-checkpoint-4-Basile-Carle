@@ -44,6 +44,8 @@ function EnvironmentSynthesis({ favorite }) {
   useEffect(() => {
     if (aqiData.length !== 0 && weatherData.length !== 0) {
       setIsLoading(false);
+      console.error(aqiData);
+      console.error(weatherData);
     }
   }, [aqiData, weatherData]);
 
@@ -64,6 +66,8 @@ function EnvironmentSynthesis({ favorite }) {
     deleteFavorite();
   };
 
+  const imgSrc = `https://openweathermap.org/img/wn/${weatherData.data.weather[0].icon}@2x.png`;
+
   return (
     <div className="environment-container">
       {isLoading ? (
@@ -73,7 +77,10 @@ function EnvironmentSynthesis({ favorite }) {
           <div className="main-synthesis">
             <div className="city">{city}</div>
             <div className="weather">
-              {weatherData.data.weather[0].description}
+              <div>
+                <img src={imgSrc} alt={weatherData.data.weather[0].icon} />
+              </div>
+              <div>{weatherData.data.weather[0].description}</div>
             </div>
             <div className="iqa">IQA : {aqiData.data.aqi}</div>
             <div className="temperature">
