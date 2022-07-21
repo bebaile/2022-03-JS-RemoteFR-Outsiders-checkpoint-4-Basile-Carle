@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import api from "@services/axios";
+import UserContext from "@contexts/UserContext";
 import "@styles/EnvironmentSynthesis.css";
 
-function EnvironmentSynthesis({ city }) {
+function EnvironmentSynthesis({ favorite }) {
+  const city = favorite.name;
   const [aqiData, setAqiData] = useState([]);
   const [weatherData, setWeatherData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { updateMapedFavorites, setUpdateMapedFavorites } =
+    useContext(UserContext);
+
   useEffect(() => {
     const BASE = `https://api.waqi.info/feed/${city}/?token=`;
     const ENDPOINT = BASE + import.meta.env.VITE_WAQI_TOKEN;
@@ -26,7 +31,6 @@ function EnvironmentSynthesis({ city }) {
     const fetchWeather = async () => {
       try {
         const result = await api.get(ENDPOINTWEATHER);
-        console.error(result);
         if (result.status === 200) {
           setWeatherData(result);
         }
@@ -43,19 +47,50 @@ function EnvironmentSynthesis({ city }) {
     }
   }, [aqiData, weatherData]);
 
+  const handleClick = (e) => {
+    console.error(e.target.value);
+    const ENDPOINT = `/favorite/${e.target.value}`;
+    const deleteFavorite = async () => {
+      try {
+        const result = await api.delete(ENDPOINT);
+        if (result.status === 204) {
+          console.error("Favoris bien supprimé");
+          setUpdateMapedFavorites(!updateMapedFavorites);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    deleteFavorite();
+  };
+
   return (
-    <div>
+    <div className="environment-container">
       {isLoading ? (
         "Loading ..."
       ) : (
-        <div className="main-synthesis">
-          <div className="city">{city}</div>
-          <div className="weather">
-            {weatherData.data.weather[0].description}
+        <>
+          <div className="main-synthesis">
+            <div className="city">{city}</div>
+            <div className="weather">
+              {weatherData.data.weather[0].description}
+            </div>
+            <div className="iqa">IQA : {aqiData.data.aqi}</div>
+            <div className="temperature">
+              T°C : {weatherData.data.main.temp}
+            </div>
           </div>
-          <div className="iqa">IQA : {aqiData.data.aqi}</div>
-          <div className="temperature">T°C : {weatherData.data.main.temp}</div>
-        </div>
+          <div className="delete-favorite">
+            <button
+              type="button"
+              className="orange-button"
+              value={favorite.idfavorite_places}
+              onClick={handleClick}
+            >
+              -
+            </button>
+          </div>
+        </>
       )}
     </div>
   );

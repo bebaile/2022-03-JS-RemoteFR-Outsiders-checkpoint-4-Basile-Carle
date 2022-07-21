@@ -69,7 +69,7 @@ class favoriteController {
 
   static delete = (req, res) => {
     models.favorite
-      .delete(req.params.id)
+      .deleteFavorite(req.params.id)
       .then(() => {
         res.sendStatus(204);
       })
