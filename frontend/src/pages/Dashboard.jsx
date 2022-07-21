@@ -34,7 +34,7 @@ export default function Dashboard() {
     <div className="main-dashboard">
       {favorites.map((favorite) => (
         <EnvironmentSynthesis
-          city={favorite.name}
+          favorite={favorite}
           key={favorite.idfavorite_places}
         />
       ))}
