@@ -1,8 +1,9 @@
 const models = require("../models");
+const { createId, hashPassword } = require("../helpers/auth.js");
 
-class userController {
+class usersController {
   static browse = (req, res) => {
-    models.user
+    models.users
       .findAll()
       .then(([rows]) => {
         res.send(rows);
@@ -14,7 +15,7 @@ class userController {
   };
 
   static read = (req, res) => {
-    models.user
+    models.users
       .find(req.params.id)
       .then(([rows]) => {
         if (rows[0] == null) {
@@ -36,7 +37,7 @@ class userController {
 
     user.id = parseInt(req.params.id, 10);
 
-    models.user
+    models.users
       .update(user)
       .then(([result]) => {
         if (result.affectedRows === 0) {
@@ -52,23 +53,27 @@ class userController {
   };
 
   static add = (req, res) => {
-    const { user } = req.body;
+    const { name, email, password } = req.body;
+    const uuid = createId();
+
+    hashPassword(password).then((hashedPassword) => {
+      console.error(hashedPassword);
+      models.users
+        .insert(uuid, name, email, hashedPassword)
+        .then(([result]) => {
+          res.status(201).send({ name, email, id: result.insertId });
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
+    });
 
     // TODO validations (length, format...)
-
-    models.user
-      .insert(user)
-      .then(([result]) => {
-        res.status(201).send({ ...user, id: result.insertId });
-      })
-      .catch((err) => {
-        console.error(err);
-        res.sendStatus(500);
-      });
   };
 
   static delete = (req, res) => {
-    models.user
+    models.users
       .deleteuser(req.params.id)
       .then(() => {
         res.sendStatus(204);
@@ -80,4 +85,4 @@ class userController {
   };
 }
 
-module.exports = userController;
+module.exports = usersController;

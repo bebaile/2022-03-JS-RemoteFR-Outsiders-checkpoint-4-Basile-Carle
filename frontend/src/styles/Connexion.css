@@ -27,6 +27,14 @@
   margin: 0.5rem;
 }
 
+.incorrect-password {
+  font-size: 0.8rem;
+  color: red;
+}
+
 .button-submit {
   margin: 1rem;
+  width: 40ch;
+  display: flex;
+  justify-content: space-between;
 }
